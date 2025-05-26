@@ -2,6 +2,7 @@
 
 import { Trash2 } from "lucide-react";
 
+import { SubjectCombobox } from "@/components/SubjectCombobox";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -74,16 +75,29 @@ export function GradeRow({
   const getSituationBadge = (situation: string) => {
     if (situation === "Aprovado") {
       return (
-        <Badge variant="default" className="bg-green-500 hover:bg-green-600">
+        <Badge
+          variant="default"
+          className="border-emerald-200 bg-emerald-400/80 text-emerald-900 hover:bg-emerald-400 dark:border-emerald-500/30 dark:bg-emerald-500/20 dark:text-emerald-300"
+        >
           Aprovado
         </Badge>
       );
     }
     if (situation === "Reprovado") {
-      return <Badge variant="destructive">Reprovado</Badge>;
+      return (
+        <Badge
+          variant="destructive"
+          className="border-rose-200 bg-rose-400/80 text-rose-900 hover:bg-rose-400 dark:border-rose-500/30 dark:bg-rose-500/20 dark:text-rose-300"
+        >
+          Reprovado
+        </Badge>
+      );
     }
     return (
-      <Badge variant="secondary" className="text-xs">
+      <Badge
+        variant="secondary"
+        className="border-gray-200 bg-gray-400/80 text-xs text-gray-900 hover:bg-gray-400 dark:border-gray-500/30 dark:bg-gray-500/20 dark:text-gray-300"
+      >
         {situation}
       </Badge>
     );
@@ -117,12 +131,12 @@ export function GradeRow({
 
   return (
     <TableRow className="hover:bg-muted/50">
-      <TableCell className="p-2">
-        <Input
+      <TableCell className="w-[300px] max-w-[300px] overflow-hidden p-2">
+        <SubjectCombobox
           value={subject.name}
-          onChange={(e) => handleInputChange("name", e.target.value)}
-          placeholder="Nome da matéria"
-          className="min-w-[120px] text-sm"
+          onValueChange={(value) => handleInputChange("name", value)}
+          placeholder="Selecione uma matéria"
+          className="w-full"
         />
       </TableCell>
 

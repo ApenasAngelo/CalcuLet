@@ -80,13 +80,13 @@ export function GradeTable() {
       <CardContent className="p-6">
         {/* Layout Desktop - Tabela */}
         <div className="hidden overflow-x-auto rounded-md border lg:block">
-          <Table>
+          <Table className="w-full table-fixed">
             <TableHeader>
               <TableRow className="bg-muted/50 text-xs md:text-sm">
-                <TableHead className="min-w-[120px] font-semibold">
+                <TableHead className="w-[300px] max-w-[300px] font-semibold">
                   Matéria
                 </TableHead>
-                <TableHead className="min-w-[80px] text-center font-semibold">
+                <TableHead className="w-[80px] text-center font-semibold">
                   <div className="flex items-center justify-center gap-1">
                     É Jesus?
                     <TooltipProvider>
@@ -108,34 +108,34 @@ export function GradeTable() {
                     </TooltipProvider>
                   </div>
                 </TableHead>
-                <TableHead className="min-w-[60px] text-center font-semibold">
+                <TableHead className="w-[80px] text-center font-semibold">
                   G1
                 </TableHead>
-                <TableHead className="min-w-[60px] text-center font-semibold">
+                <TableHead className="w-[80px] text-center font-semibold">
                   G2
                 </TableHead>
                 {hasJesusSubjects && (
                   <>
-                    <TableHead className="min-w-[60px] text-center font-semibold">
+                    <TableHead className="w-[80px] text-center font-semibold">
                       G3
                     </TableHead>
-                    <TableHead className="min-w-[60px] text-center font-semibold">
+                    <TableHead className="w-[80px] text-center font-semibold">
                       G4
                     </TableHead>
                   </>
                 )}
                 {shouldShowDesiredGradeColumn && (
-                  <TableHead className="min-w-[120px] text-center font-semibold">
+                  <TableHead className="w-[120px] text-center font-semibold">
                     Nota Desejada
                   </TableHead>
                 )}
-                <TableHead className="min-w-[80px] text-center font-semibold">
+                <TableHead className="w-[80px] text-center font-semibold">
                   Média Final
                 </TableHead>
-                <TableHead className="min-w-[80px] text-center font-semibold">
+                <TableHead className="w-[120px] text-center font-semibold">
                   Situação
                 </TableHead>
-                <TableHead className="min-w-[60px] text-center font-semibold">
+                <TableHead className="w-[60px] text-center font-semibold">
                   Ação
                 </TableHead>
               </TableRow>
@@ -169,8 +169,6 @@ export function GradeTable() {
               }
               onRemove={() => removeSubject(subject.id)}
               canRemove={subjects.length > 1}
-              shouldShowDesiredGradeColumn={shouldShowDesiredGradeColumn}
-              hasJesusSubjects={hasJesusSubjects}
             />
           ))}
         </div>

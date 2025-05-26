@@ -2,6 +2,7 @@
 
 import { Trash2 } from "lucide-react";
 
+import { SubjectCombobox } from "@/components/SubjectCombobox";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,8 +22,6 @@ interface MobileGradeCardProps {
   onUpdate: (updates: Partial<Subject>) => void;
   onRemove: () => void;
   canRemove: boolean;
-  shouldShowDesiredGradeColumn: boolean;
-  hasJesusSubjects: boolean;
 }
 
 export function MobileGradeCard({
@@ -30,8 +29,6 @@ export function MobileGradeCard({
   onUpdate,
   onRemove,
   canRemove,
-  shouldShowDesiredGradeColumn,
-  hasJesusSubjects,
 }: MobileGradeCardProps) {
   const calculatedSubject: CalculatedSubject = calculateGrade(subject);
 
@@ -76,16 +73,29 @@ export function MobileGradeCard({
   const getSituationBadge = (situation: string) => {
     if (situation === "Aprovado") {
       return (
-        <Badge variant="default" className="bg-green-500 hover:bg-green-600">
+        <Badge
+          variant="default"
+          className="border-emerald-200 bg-emerald-400/80 text-emerald-900 hover:bg-emerald-400 dark:border-emerald-500/30 dark:bg-emerald-500/20 dark:text-emerald-300"
+        >
           Aprovado
         </Badge>
       );
     }
     if (situation === "Reprovado") {
-      return <Badge variant="destructive">Reprovado</Badge>;
+      return (
+        <Badge
+          variant="destructive"
+          className="border-rose-200 bg-rose-400/80 text-rose-900 hover:bg-rose-400 dark:border-rose-500/30 dark:bg-rose-500/20 dark:text-rose-300"
+        >
+          Reprovado
+        </Badge>
+      );
     }
     return (
-      <Badge variant="secondary" className="text-xs">
+      <Badge
+        variant="secondary"
+        className="border-gray-200 bg-gray-400/80 text-xs text-gray-900 hover:bg-gray-400 dark:border-gray-500/30 dark:bg-gray-500/20 dark:text-gray-300"
+      >
         {situation}
       </Badge>
     );
@@ -117,16 +127,25 @@ export function MobileGradeCard({
     }
   };
 
+  // Verificar se deve mostrar a seção "Nota Desejada" para este card específico
+  const shouldShowDesiredGradeForThisCard = () => {
+    // Só mostrar se a situação não for final (aprovado/reprovado)
+    return (
+      calculatedSubject.situation !== "Aprovado" &&
+      calculatedSubject.situation !== "Reprovado"
+    );
+  };
+
   return (
     <Card className="bg-background w-full border shadow-lg">
       <CardContent className="space-y-4 p-4">
         {/* Nome da matéria */}
         <div className="flex items-center gap-2">
-          <Input
+          <SubjectCombobox
             value={subject.name}
-            onChange={(e) => handleInputChange("name", e.target.value)}
-            placeholder="Nome da matéria"
-            className="flex-1 font-medium"
+            onValueChange={(value) => handleInputChange("name", value)}
+            placeholder="Selecione uma matéria"
+            className="flex-1"
           />
           <Button
             variant="outline"
@@ -170,36 +189,14 @@ export function MobileGradeCard({
 
         {/* Notas */}
         <div
-          className={`grid gap-3 ${hasJesusSubjects ? "grid-cols-2" : "grid-cols-2"}`}
+          className={`grid gap-3 ${subject.isJesus ? "grid-cols-2" : "grid-cols-2"}`}
         >
           {renderGradeInput("g1", "G1")}
           {renderGradeInput("g2", "G2")}
-          {hasJesusSubjects && (
+          {subject.isJesus && (
             <>
-              {subject.isJesus ? (
-                renderGradeInput("g3", "G3")
-              ) : (
-                <div className="flex items-center gap-2">
-                  <label className="text-muted-foreground min-w-[60px] text-sm font-medium">
-                    G3:
-                  </label>
-                  <div className="text-muted-foreground flex-1 text-center text-xs">
-                    -
-                  </div>
-                </div>
-              )}
-              {subject.isJesus ? (
-                renderGradeInput("g4", "G4")
-              ) : (
-                <div className="flex items-center gap-2">
-                  <label className="text-muted-foreground min-w-[60px] text-sm font-medium">
-                    G4:
-                  </label>
-                  <div className="text-muted-foreground flex-1 text-center text-xs">
-                    -
-                  </div>
-                </div>
-              )}
+              {renderGradeInput("g3", "G3")}
+              {renderGradeInput("g4", "G4")}
             </>
           )}
         </div>
@@ -223,8 +220,8 @@ export function MobileGradeCard({
           <div>{getSituationBadge(calculatedSubject.situation)}</div>
         </div>
 
-        {/* Cálculos de "o que precisa" */}
-        {shouldShowDesiredGradeColumn && (
+        {/* Cálculos de "o que precisa" - No mobile, só mostrar se a situação não for final para este card */}
+        {shouldShowDesiredGradeForThisCard() && (
           <div className="space-y-2">
             <div className="text-sm font-medium">Nota Desejada:</div>
             <div className="space-y-2">

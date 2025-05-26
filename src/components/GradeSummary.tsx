@@ -1,5 +1,7 @@
 "use client";
 
+import { ChartNoAxesColumnIcon } from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CalculatedSubject } from "@/types";
@@ -53,31 +55,38 @@ export function GradeSummary({ calculatedSubjects }: GradeSummaryProps) {
     completedSubjects.length > 0 ? totalGrades / completedSubjects.length : 0;
 
   const getAverageColor = (avg: number) => {
-    if (avg >= 8) return "text-green-600 dark:text-green-400";
-    if (avg >= 6) return "text-blue-600 dark:text-blue-400";
-    if (avg >= 5) return "text-yellow-600 dark:text-yellow-400";
-    return "text-red-600 dark:text-red-400";
+    if (avg >= 8) return "text-emerald-500 dark:text-emerald-400";
+    if (avg >= 6) return "text-sky-500 dark:text-sky-400";
+    if (avg >= 5) return "text-amber-500 dark:text-amber-400";
+    return "text-rose-500 dark:text-rose-400";
   };
 
   return (
     <Card className="mt-6 w-full">
       <CardHeader>
         <CardTitle className="text-center text-xl font-semibold">
-          📊 Resumo Geral
+          <ChartNoAxesColumnIcon className="mr-2 inline-block h-6 w-6" />
+          Resumo Geral
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="mb-4 grid grid-cols-2 gap-4 md:grid-cols-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">{approved}</div>
+            <div className="text-2xl font-bold text-emerald-500 dark:text-emerald-400">
+              {approved}
+            </div>
             <div className="text-muted-foreground text-sm">Aprovadas</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-red-600">{failed}</div>
+            <div className="text-2xl font-bold text-rose-500 dark:text-rose-400">
+              {failed}
+            </div>
             <div className="text-muted-foreground text-sm">Reprovadas</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">{pending}</div>
+            <div className="text-2xl font-bold text-gray-500 dark:text-gray-400">
+              {pending}
+            </div>
             <div className="text-muted-foreground text-sm">Pendentes</div>
           </div>
           <div className="text-center">
@@ -95,18 +104,24 @@ export function GradeSummary({ calculatedSubjects }: GradeSummaryProps) {
             {approved > 0 && (
               <Badge
                 variant="default"
-                className="bg-green-500 hover:bg-green-600"
+                className="border-emerald-200 bg-emerald-400/80 text-emerald-900 hover:bg-emerald-400 dark:border-emerald-500/30 dark:bg-emerald-500/20 dark:text-emerald-300"
               >
                 {approved} Aprovada{approved !== 1 ? "s" : ""}
               </Badge>
             )}
             {failed > 0 && (
-              <Badge variant="destructive">
+              <Badge
+                variant="destructive"
+                className="border-rose-200 bg-rose-400/80 text-rose-900 hover:bg-rose-400 dark:border-rose-500/30 dark:bg-rose-500/20 dark:text-rose-300"
+              >
                 {failed} Reprovada{failed !== 1 ? "s" : ""}
               </Badge>
             )}
             {pending > 0 && (
-              <Badge variant="secondary">
+              <Badge
+                variant="secondary"
+                className="border-gray-200 bg-gray-400/80 text-gray-900 hover:bg-gray-400 dark:border-gray-500/30 dark:bg-gray-500/20 dark:text-gray-300"
+              >
                 {pending} Pendente{pending !== 1 ? "s" : ""}
               </Badge>
             )}
