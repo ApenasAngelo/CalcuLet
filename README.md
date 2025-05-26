@@ -1,4 +1,4 @@
-# ✨💜 CalcuLet - Calculadora de Notas da Letícia
+![image](https://github.com/user-attachments/assets/0d9a1874-7b75-4ebc-8408-9ee23be23de9)# ✨💜 CalcuLet - Calculadora de Notas da Letícia
 
 ## 📜 Descrição
 
@@ -29,7 +29,7 @@ O projeto inclui todas as disciplinas do curso de Psicologia da Letícia, inclui
 
 ## 🌐 Deploy da Aplicação
 
-_[Link para o projeto em produção será adicionado aqui]_
+[Link para o projeto](https://calculet.vercel.app/)
 
 ## ⚙️ Tecnologias e Arquitetura
 
